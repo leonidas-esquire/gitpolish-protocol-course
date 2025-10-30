@@ -14,7 +14,7 @@ To create the most comprehensive, professional, and accessible certification cou
 - Interactive website launched
 - Comprehensive documentation
 - Certification program defined
-- Open-source release under MIT License
+- Initial release under Proprietary License
 
 📝 **In Progress**
 - Module 2-6 content development

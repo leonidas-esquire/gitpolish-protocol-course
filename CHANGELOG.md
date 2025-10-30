@@ -49,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Repository structure for all 6 modules
 
 #### Legal & Licensing
-- MIT License
+- Proprietary License
 - Code of Conduct
 - Contributing guidelines
 
@@ -107,7 +107,7 @@ The first public release of the GitPolish Protocol™ Certification Course inclu
 - **Professional documentation** following GitPolish Protocol™ principles
 - **Interactive website** for enhanced learning experience
 - **Certification program** with exam and capstone project
-- **Open-source release** under MIT License
+- **Initial release** under Proprietary License
 
 This release provides a solid foundation for the certification course with Module 1 fully complete and ready for students. The repository demonstrates the GitPolish Protocol™ methodology through its own structure and organization.
 

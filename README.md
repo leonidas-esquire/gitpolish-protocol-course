@@ -2,7 +2,7 @@
 
 **Professional GitHub Repository Management Training Program**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
 [![Course Status](https://img.shields.io/badge/Status-Active-success.svg)]()
 [![Modules](https://img.shields.io/badge/Modules-6-informational.svg)]()
 [![Scenarios](https://img.shields.io/badge/Scenarios-40-informational.svg)]()
@@ -195,7 +195,7 @@ This repository follows the GitPolish Protocol™ principles, demonstrating prof
 ```
 gitpolish-protocol-course/
 ├── README.md                          # This file - comprehensive project overview
-├── LICENSE                            # MIT License
+├── LICENSE                            # Proprietary License
 ├── CONTRIBUTING.md                    # Contribution guidelines
 ├── CODE_OF_CONDUCT.md                # Community standards
 ├── .github/                          # GitHub-specific configurations
@@ -419,7 +419,7 @@ This project adheres to a Code of Conduct that all contributors must follow. Ple
 
 ## License
 
-This project is licensed under the MIT License, which means you are free to use, modify, and distribute this course material with attribution. See the [LICENSE](LICENSE) file for full details.
+This project is licensed under a **Proprietary License**. The materials are available for personal learning and educational purposes. Commercial use, redistribution, or derivative works require explicit written permission. See the [LICENSE](LICENSE) file for full details and licensing inquiries.
 
 ---
 

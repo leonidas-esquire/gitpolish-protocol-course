@@ -1,21 +1,78 @@
-MIT License
+PROPRIETARY LICENSE
 
-Copyright (c) 2025 GitPolish Protocol™ Certification Course
+Copyright (c) 2025 GitPolish Protocol™. All Rights Reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+GITPOLISH PROTOCOL™ CERTIFICATION COURSE
+Proprietary and Confidential
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+This repository and all its contents, including but not limited to course materials, 
+documentation, slides, exercises, assessments, code, templates, and associated intellectual 
+property (collectively, the "Materials") are the exclusive property of the copyright holder.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+GRANT OF LICENSE
+
+Subject to the terms and conditions of this license, the copyright holder grants you a 
+limited, non-exclusive, non-transferable, revocable license to:
+
+1. USE the Materials for personal learning and educational purposes
+2. FORK this repository for completing course exercises and assignments
+3. REFERENCE the Materials in academic or professional contexts with proper attribution
+
+RESTRICTIONS
+
+You may NOT:
+
+1. Redistribute, sell, lease, or sublicense the Materials or any portion thereof
+2. Use the Materials for commercial training or educational programs without explicit 
+   written permission
+3. Remove, alter, or obscure any copyright, trademark, or proprietary notices
+4. Create derivative works based on the Materials for commercial purposes
+5. Use the "GitPolish Protocol™" trademark without authorization
+6. Claim ownership or authorship of the Materials
+7. Use the Materials in any way that competes with the copyright holder's business interests
+
+INSTITUTIONAL AND COMMERCIAL USE
+
+Organizations, educational institutions, and commercial entities wishing to use these 
+Materials for training, certification programs, or other purposes must obtain a separate 
+commercial license. Contact the copyright holder for licensing inquiries.
+
+ATTRIBUTION
+
+When referencing or citing these Materials, you must provide clear attribution:
+"GitPolish Protocol™ Certification Course - Copyright (c) 2025. All Rights Reserved."
+
+INTELLECTUAL PROPERTY
+
+The GitPolish Protocol™ name, logo, framework, methodology, and all associated trademarks 
+are proprietary intellectual property. The Five Pillars framework, Seven-Phase Implementation 
+Process, and all course content are protected intellectual property.
+
+TERMINATION
+
+This license is effective until terminated. Your rights under this license will terminate 
+automatically without notice if you fail to comply with any of its terms. Upon termination, 
+you must cease all use of the Materials and destroy all copies in your possession.
+
+DISCLAIMER OF WARRANTY
+
+THE MATERIALS ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY 
+CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE OF THE MATERIALS.
+
+GOVERNING LAW
+
+This license shall be governed by and construed in accordance with the laws of the 
+jurisdiction in which the copyright holder is located, without regard to its conflict 
+of law provisions.
+
+CONTACT
+
+For licensing inquiries, permissions, or questions about this license:
+Repository: https://github.com/leonidas-esquire/gitpolish-protocol-course
+Issues: https://github.com/leonidas-esquire/gitpolish-protocol-course/issues
+
+---
+
+GitPolish Protocol™ is a trademark. All rights reserved.

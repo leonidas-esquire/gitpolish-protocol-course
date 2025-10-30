@@ -24,7 +24,7 @@ Students should have basic familiarity with Git and GitHub including creating re
 
 ### How much does the course cost?
 
-The course materials in this repository are provided free of charge under the MIT License. You can access, use, and modify all materials at no cost. Organizations offering formal certification programs may charge fees for instruction, assessment, and certification services.
+The course materials in this repository are provided under a Proprietary License. You can access and use the materials for personal learning and educational purposes at no cost. Commercial use, including offering formal certification programs, requires a separate commercial license. Contact the repository owner for licensing inquiries.
 
 ## Technical Setup Questions
 
@@ -161,7 +161,7 @@ GitHub Discussions can be used for community conversations, questions, and peer 
 
 ### Can I use these materials for my own training programs?
 
-Yes! The course materials are licensed under the MIT License, which allows you to use, modify, and distribute the materials, including for commercial training programs. Please provide attribution to the original source.
+Commercial use of the course materials requires a separate commercial license. The Proprietary License allows personal learning and educational use, but redistribution, modification for commercial purposes, or use in commercial training programs requires explicit written permission. Contact the repository owner for commercial licensing inquiries.
 
 ### How can I stay updated on course developments?
 

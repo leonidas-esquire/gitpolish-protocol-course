@@ -92,4 +92,4 @@ Please pay special attention to:
 
 ---
 
-**By submitting this pull request, I confirm that my contribution is made under the terms of the MIT License.**
+**By submitting this pull request, I confirm that my contribution is made under the terms of the Proprietary License and I have read and agree to the contribution guidelines.**
