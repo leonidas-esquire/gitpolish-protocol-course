@@ -1,0 +1,77 @@
+name: Content Improvement
+description: Suggest improvements to existing course materials
+title: "[CONTENT] "
+labels: ["content", "improvement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us improve the course content! Your feedback is valuable.
+  
+  - type: dropdown
+    id: content_type
+    attributes:
+      label: Content Type
+      description: What type of content needs improvement?
+      options:
+        - Presentation Slides
+        - Lab Exercise
+        - Documentation
+        - Student Workbook
+        - Assessment/Quiz
+        - Code Examples
+        - Other
+    validations:
+      required: true
+  
+  - type: input
+    id: location
+    attributes:
+      label: Content Location
+      description: Where is this content located?
+      placeholder: "e.g., Module 2, Slide 15 or docs/README.md, line 42"
+    validations:
+      required: true
+  
+  - type: textarea
+    id: current
+    attributes:
+      label: Current Content
+      description: What does the current content say or show?
+      placeholder: "Currently, it says/shows..."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: issue
+    attributes:
+      label: Issue with Current Content
+      description: What's wrong or could be better?
+      placeholder: "The problem is..."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Improvement
+      description: How should it be improved?
+      placeholder: "It should instead..."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why would this improvement be beneficial?
+      placeholder: "This would be better because..."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other relevant information, examples, or references
+      placeholder: Any additional context

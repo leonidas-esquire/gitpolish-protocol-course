@@ -1,0 +1,96 @@
+name: Bug Report
+description: Report a bug or error in the course materials or website
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the information below to help us fix the issue.
+  
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of the course is affected?
+      options:
+        - Course Materials (slides, workbook, documents)
+        - Website (course platform)
+        - Documentation (README, guides)
+        - Labs/Exercises
+        - Assessments (quizzes, exam)
+        - Other
+    validations:
+      required: true
+  
+  - type: input
+    id: module
+    attributes:
+      label: Module (if applicable)
+      description: Which module does this bug affect?
+      placeholder: "e.g., Module 1, Module 2"
+  
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of the bug
+      placeholder: Describe what's wrong
+    validations:
+      required: true
+  
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+  
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should happen instead?
+      placeholder: Describe the expected behavior
+    validations:
+      required: true
+  
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happens?
+      placeholder: Describe what actually happens
+    validations:
+      required: true
+  
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain the problem
+      placeholder: Drag and drop images here
+  
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Please provide relevant environment details
+      placeholder: |
+        - OS: [e.g., macOS 13.0, Windows 11, Ubuntu 22.04]
+        - Browser: [e.g., Chrome 120, Firefox 121, Safari 17]
+        - Git version: [e.g., 2.40.0]
+        - Node version (if website issue): [e.g., 18.17.0]
+  
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here
+      placeholder: Any additional information that might be helpful

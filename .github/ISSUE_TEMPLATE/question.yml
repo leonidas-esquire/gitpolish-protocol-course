@@ -1,0 +1,56 @@
+name: Question
+description: Ask a question about the course or repository
+title: "[QUESTION] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question? We're here to help! Please provide as much detail as possible.
+  
+  - type: dropdown
+    id: category
+    attributes:
+      label: Question Category
+      description: What is your question about?
+      options:
+        - Course Content
+        - Technical Setup
+        - Certification Process
+        - Labs/Exercises
+        - GitPolish Protocol™ Framework
+        - Repository Usage
+        - Contributing
+        - Other
+    validations:
+      required: true
+  
+  - type: input
+    id: module
+    attributes:
+      label: Related Module (if applicable)
+      description: Which module is your question about?
+      placeholder: "e.g., Module 1, Module 3"
+  
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: "I'm wondering about..."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide any relevant context or what you've already tried
+      placeholder: "I've already looked at... I tried..."
+  
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Any other details that might help us answer your question
+      placeholder: Any additional context
