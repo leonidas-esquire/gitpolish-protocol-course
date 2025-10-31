@@ -5,6 +5,11 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
+// Authentication context
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
+
 // Public pages
 import Home from "./pages/Home";
 import Curriculum from "./pages/Curriculum";
@@ -25,16 +30,16 @@ function Router() {
       {/* Public routes */}
       <Route path="/" component={Home} />
       <Route path="/curriculum" component={Curriculum} />
-      <Route path="/module-1" component={Module1Dashboard} />
-      <Route path="/module-1/quiz" component={Module1Quiz} />
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/certification" component={Certification} />
-      <Route path="/resources" component={Resources} />
+      <ProtectedRoute path="/module-1" component={Module1Dashboard} />
+      <ProtectedRoute path="/module-1/quiz" component={Module1Quiz} />
+      <ProtectedRoute path="/dashboard" component={Dashboard} />
+      <ProtectedRoute path="/certification" component={Certification} />
+      <ProtectedRoute path="/resources" component={Resources} />
 
       {/* Admin routes */}
-      <Route path="/admin" component={AdminDashboard} />
-      <Route path="/admin/students" component={AdminStudents} />
-      <Route path="/admin/analytics" component={AdminAnalytics} />
+      <AdminRoute path="/admin" component={AdminDashboard} />
+      <AdminRoute path="/admin/students" component={AdminStudents} />
+      <AdminRoute path="/admin/analytics" component={AdminAnalytics} />
 
       {/* 404 route */}
       <Route path="/404" component={NotFound} />
@@ -45,17 +50,17 @@ function Router() {
   );
 }
 
-function App() {
+export default function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider defaultTheme="light">
-        <TooltipProvider>
-          <Router />
-          <Toaster />
-        </TooltipProvider>
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider defaultTheme="light">
+          <TooltipProvider>
+            <Router />
+            <Toaster />
+          </TooltipProvider>
+        </ThemeProvider>
+      </AuthProvider>
     </ErrorBoundary>
   );
 }
-
-export default App;
