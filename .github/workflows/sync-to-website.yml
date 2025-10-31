@@ -1,81 +1,80 @@
-name: Sync Content to Website
+name: Sync Course Materials to Website
 
 on:
   push:
-    branches: [master, main]
+    branches:
+      - master
     paths:
       - 'course-materials/**'
+      - 'docs/**'
+      - 'templates/**'
       - 'resources/**'
-      - 'README.md'
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * *'  # Daily at midnight UTC
 
 jobs:
   sync-to-website:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
     steps:
-      - name: Checkout materials repository
+      - name: Checkout course materials repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
+          path: materials
+      
       - name: Checkout website repository
         uses: actions/checkout@v4
         with:
           repository: leonidas-esquire/gitpolish-course-website
           token: ${{ secrets.SYNC_TOKEN }}
-          path: website-repo
-          
-      - name: Sync course materials
+          fetch-depth: 0
+          path: website
+      
+      - name: Sync course materials to website
         run: |
-          # Create target directories
-          mkdir -p website-repo/public/course-content
-          mkdir -p website-repo/public/downloads
-          mkdir -p website-repo/public/resources
+          # Create target directories if they don't exist
+          mkdir -p website/public/course-materials
+          mkdir -p website/public/docs
+          mkdir -p website/public/templates
+          mkdir -p website/public/resources
           
-          # Sync course materials
-          rsync -av --delete course-materials/ website-repo/public/course-content/
+          # Sync directories
+          rsync -av --delete materials/course-materials/ website/public/course-materials/
+          rsync -av --delete materials/docs/ website/public/docs/
+          rsync -av --delete materials/templates/ website/public/templates/
+          rsync -av --delete materials/resources/ website/public/resources/
           
-          # Sync downloadable documents
-          find course-materials -name "*.docx" -exec cp {} website-repo/public/downloads/ \;
-          find course-materials -name "*.pdf" -exec cp {} website-repo/public/downloads/ \;
-          
-          # Sync resources
-          if [ -d "resources" ]; then
-            rsync -av resources/ website-repo/public/resources/
-          fi
-          
-      - name: Update sync documentation
-        run: |
-          cd website-repo
-          
-          # Update sync log
-          echo "## Sync $(date -u +%Y-%m-%d\ %H:%M:%S\ UTC)" >> docs/CONTENT_SYNC_LOG.md
-          echo "" >> docs/CONTENT_SYNC_LOG.md
-          echo "**Source:** gitpolish-protocol-course@${{ github.sha }}" >> docs/CONTENT_SYNC_LOG.md
-          echo "**Trigger:** ${{ github.event_name }}" >> docs/CONTENT_SYNC_LOG.md
-          echo "**Files synced:** $(find public/course-content public/downloads public/resources -type f 2>/dev/null | wc -l)" >> docs/CONTENT_SYNC_LOG.md
-          echo "" >> docs/CONTENT_SYNC_LOG.md
-          
-          # Update CHANGELOG
-          echo "" >> CHANGELOG.md
-          echo "### Content Sync - $(date -u +%Y-%m-%d)" >> CHANGELOG.md
-          echo "" >> CHANGELOG.md
-          echo "Synced course materials from gitpolish-protocol-course@${{ github.sha }}" >> CHANGELOG.md
-          echo "" >> CHANGELOG.md
-          
+          # Copy README to website
+          cp materials/README.md website/public/COURSE_README.md
+      
       - name: Commit and push changes
+        working-directory: website
         run: |
-          cd website-repo
           git config user.name "GitPolish Sync Bot"
-          git config user.email "sync@gitpolish.com"
+          git config user.email "sync-bot@gitpolish-course.local"
+          
           git add .
-          git diff --staged --quiet || git commit -m "sync: materials → website - course content update
-
-Synced from: gitpolish-protocol-course@${{ github.sha }}
-Synced to: gitpolish-course-website
-Sync type: ${{ github.event_name }}
-
-[GitPolish Protocol™ Sync System]"
-          git push
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "sync: Update course materials from gitpolish-protocol-course | Automated sync from course materials repository | Updated: course-materials, docs, templates, resources | Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
+      
+      - name: Create sync report
+        if: always()
+        run: |
+          echo "## Sync Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Source**: gitpolish-protocol-course" >> $GITHUB_STEP_SUMMARY
+          echo "**Target**: gitpolish-course-website" >> $GITHUB_STEP_SUMMARY
+          echo "**Timestamp**: $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Synced Directories" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ course-materials/" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ docs/" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ templates/" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ resources/" >> $GITHUB_STEP_SUMMARY
