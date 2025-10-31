@@ -19,9 +19,8 @@ import Certification from "./pages/Certification";
 import Resources from "./pages/Resources";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
-
-// Certificate page for students
-import Certificate from "./pages/Certificate";
+import Enroll from "./pages/Enroll";      // ⬅️ import the enrollment page
+import Certificate from "./pages/Certificate"; // Certificate page for students
 
 // Admin pages
 import AdminDashboard from "./pages/AdminDashboard";
@@ -35,6 +34,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/login" component={Login} />
       <Route path="/curriculum" component={Curriculum} />
+      <Route path="/enroll" component={Enroll} /> {/* ⬅️ enrollment route */}
 
       {/* Student-protected routes */}
       <ProtectedRoute path="/module-1" component={Module1Dashboard} />
@@ -42,7 +42,7 @@ function Router() {
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <ProtectedRoute path="/certification" component={Certification} />
       <ProtectedRoute path="/resources" component={Resources} />
-      <ProtectedRoute path="/certificate" component={Certificate} /> {/* certificate route */}
+      <ProtectedRoute path="/certificate" component={Certificate} />
 
       {/* Admin routes */}
       <AdminRoute path="/admin" component={AdminDashboard} />
