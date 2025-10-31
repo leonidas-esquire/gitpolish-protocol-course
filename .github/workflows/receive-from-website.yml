@@ -1,0 +1,66 @@
+name: Receive Updates from Website
+
+on:
+  repository_dispatch:
+    types: [sync-from-website]
+  workflow_dispatch:
+
+jobs:
+  receive-updates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout materials repository
+        uses: actions/checkout@v4
+        
+      - name: Checkout website repository
+        uses: actions/checkout@v4
+        with:
+          repository: leonidas-esquire/gitpolish-course-website
+          token: ${{ secrets.SYNC_TOKEN }}
+          path: website-repo
+          
+      - name: Sync documentation from website
+        run: |
+          # Create docs directory if it doesn't exist
+          mkdir -p docs
+          
+          # Sync LMS implementation status
+          if [ -f "website-repo/LMS_IMPLEMENTATION_PLAN.md" ]; then
+            cp website-repo/LMS_IMPLEMENTATION_PLAN.md docs/LMS_STATUS.md
+          fi
+          
+          # Sync architecture documentation
+          if [ -f "website-repo/docs/ARCHITECTURE.md" ]; then
+            cp website-repo/docs/ARCHITECTURE.md docs/WEBSITE_ARCHITECTURE.md
+          fi
+          
+      - name: Update sync documentation
+        run: |
+          # Update sync log
+          echo "## Sync $(date -u +%Y-%m-%d\ %H:%M:%S\ UTC)" >> docs/SYNC_LOG.md
+          echo "" >> docs/SYNC_LOG.md
+          echo "**Source:** gitpolish-course-website" >> docs/SYNC_LOG.md
+          echo "**Direction:** website → materials" >> docs/SYNC_LOG.md
+          echo "**Trigger:** ${{ github.event_name }}" >> docs/SYNC_LOG.md
+          echo "" >> docs/SYNC_LOG.md
+          
+          # Update CHANGELOG
+          echo "" >> CHANGELOG.md
+          echo "### Website Documentation Sync - $(date -u +%Y-%m-%d)" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "Updated website status and architecture documentation" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          
+      - name: Commit and push changes
+        run: |
+          git config user.name "GitPolish Sync Bot"
+          git config user.email "sync@gitpolish.com"
+          git add .
+          git diff --staged --quiet || git commit -m "sync: website → materials - documentation update
+
+Synced from: gitpolish-course-website
+Synced to: gitpolish-protocol-course
+Sync type: ${{ github.event_name }}
+
+[GitPolish Protocol™ Sync System]"
+          git push
