@@ -9,37 +9,31 @@ import Curriculum from "./pages/Curriculum";
 import Module1 from "./pages/Module1";
 import Certification from "./pages/Certification";
 import Resources from "./pages/Resources";
+import Dashboard from "./pages/Dashboard";
 
 function Router() {
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/curriculum"} component={Curriculum} />
-      <Route path={"/module-1"} component={Module1} />
-      <Route path={"/certification"} component={Certification} />
-      <Route path={"/resources"} component={Resources} />
-      <Route path={"/404"} component={NotFound} />
+      <Route path="/" component={Home} />
+      <Route path="/curriculum" component={Curriculum} />
+      <Route path="/module-1" component={Module1} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/certification" component={Certification} />
+      <Route path="/resources" component={Resources} />
+      <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
+      <ThemeProvider defaultTheme="light">
         <TooltipProvider>
-          <Toaster />
           <Router />
+          <Toaster />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
