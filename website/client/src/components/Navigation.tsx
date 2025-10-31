@@ -1,71 +1,136 @@
-import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
 import { useState } from "react";
+import { Link, useLocation } from "wouter";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Navigation() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const [, setLocation] = useLocation();
+
+  function handleLogout() {
+    logout();
+    setLocation("/login"); // redirect to login after logging out
+  }
+
+  // Define navigation links based on user role
+  const publicLinks = [
+    { href: "/", label: "Home" },
+    { href: "/curriculum", label: "Curriculum" },
+    { href: "/resources", label: "Resources" },
+  ];
+
+  const studentLinks = [
+    { href: "/dashboard", label: "Dashboard" },
+    { href: "/module-1", label: "Module 1" },
+  ];
+
+  const adminLinks = [
+    { href: "/admin", label: "Admin Dashboard" },
+    { href: "/admin/students", label: "Students" },
+    { href: "/admin/analytics", label: "Analytics" },
+  ];
 
   return (
-    <nav className="bg-[#1E1E1E] border-b border-[#3E3E42] sticky top-0 z-50">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+    <nav className="bg-gray-900 text-white">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="flex items-center">
           <Link href="/">
-            <div className="flex items-center space-x-3 cursor-pointer">
-              <div className="text-2xl font-bold text-[#4EC9B0]">GitPolish Protocol™</div>
-            </div>
+            <a className="text-lg font-bold">GitPolish LMS</a>
           </Link>
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
-            <Link href="/">
-              <span className="text-[#D4D4D4] hover:text-[#4EC9B0] cursor-pointer transition-colors">Home</span>
+        </div>
+        <div className="hidden md:flex space-x-6 items-center">
+          {publicLinks.map((link) => (
+            <Link key={link.href} href={link.href}>
+              <a className="hover:underline">{link.label}</a>
             </Link>
-            <Link href="/dashboard">
-              <span className="text-[#D4D4D4] hover:text-[#4EC9B0] cursor-pointer transition-colors">Dashboard</span>
+          ))}
+          {user && user.role === "student" &&
+            studentLinks.map((link) => (
+              <Link key={link.href} href={link.href}>
+                <a className="hover:underline">{link.label}</a>
+              </Link>
+            ))}
+          {user && user.role === "admin" &&
+            adminLinks.map((link) => (
+              <Link key={link.href} href={link.href}>
+                <a className="hover:underline">{link.label}</a>
+              </Link>
+            ))}
+          {!user ? (
+            <Link href="/login">
+              <a className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-500">
+                Login
+              </a>
             </Link>
-            <Link href="/curriculum">
-              <span className="text-[#D4D4D4] hover:text-[#4EC9B0] cursor-pointer transition-colors">Curriculum</span>
-            </Link>
-            <Link href="/module-1">
-              <span className="text-[#D4D4D4] hover:text-[#4EC9B0] cursor-pointer transition-colors">Module 1</span>
-            </Link>
-            <Link href="/certification">
-              <span className="text-[#D4D4D4] hover:text-[#4EC9B0] cursor-pointer transition-colors">Certification</span>
-            </Link>
-            <Link href="/resources">
-              <span className="text-[#D4D4D4] hover:text-[#4EC9B0] cursor-pointer transition-colors">Resources</span>
-            </Link>
-          </div>
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <Button variant="ghost" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              <Menu className="w-6 h-6 text-[#D4D4D4]" />
-            </Button>
-          </div>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="bg-red-600 px-4 py-2 rounded hover:bg-red-500"
+            >
+              Logout
+            </button>
+          )}
+        </div>
+        <div className="md:hidden">
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2">
+            &#9776;
+          </button>
         </div>
       </div>
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden px-4 pb-4">
-          <Link href="/" onClick={() => setMobileMenuOpen(false)}>
-            <div className="block py-2 text-[#D4D4D4] hover:text-[#4EC9B0]">Home</div>
-          </Link>
-          <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-            <div className="block py-2 text-[#D4D4D4] hover:text-[#4EC9B0]">Dashboard</div>
-          </Link>
-          <Link href="/curriculum" onClick={() => setMobileMenuOpen(false)}>
-            <div className="block py-2 text-[#D4D4D4] hover:text-[#4EC9B0]">Curriculum</div>
-          </Link>
-          <Link href="/module-1" onClick={() => setMobileMenuOpen(false)}>
-            <div className="block py-2 text-[#D4D4D4] hover:text-[#4EC9B0]">Module 1</div>
-          </Link>
-          <Link href="/certification" onClick={() => setMobileMenuOpen(false)}>
-            <div className="block py-2 text-[#D4D4D4] hover:text-[#4EC9B0]">Certification</div>
-          </Link>
-          <Link href="/resources" onClick={() => setMobileMenuOpen(false)}>
-            <div className="block py-2 text-[#D4D4D4] hover:text-[#4EC9B0]">Resources</div>
-          </Link>
+      {mobileOpen && (
+        <div className="md:hidden bg-gray-800 px-4 pt-2 pb-4 space-y-2">
+          {publicLinks.map((link) => (
+            <Link key={link.href} href={link.href}>
+              <a
+                onClick={() => setMobileOpen(false)}
+                className="block py-2"
+              >
+                {link.label}
+              </a>
+            </Link>
+          ))}
+          {user && user.role === "student" &&
+            studentLinks.map((link) => (
+              <Link key={link.href} href={link.href}>
+                <a
+                  onClick={() => setMobileOpen(false)}
+                  className="block py-2"
+                >
+                  {link.label}
+                </a>
+              </Link>
+            ))}
+          {user && user.role === "admin" &&
+            adminLinks.map((link) => (
+              <Link key={link.href} href={link.href}>
+                <a
+                  onClick={() => setMobileOpen(false)}
+                  className="block py-2"
+                >
+                  {link.label}
+                </a>
+              </Link>
+            ))}
+          {!user ? (
+            <Link href="/login">
+              <a
+                onClick={() => setMobileOpen(false)}
+                className="block py-2 bg-blue-600 rounded text-center hover:bg-blue-500"
+              >
+                Login
+              </a>
+            </Link>
+          ) : (
+            <button
+              onClick={() => {
+                setMobileOpen(false);
+                handleLogout();
+              }}
+              className="block w-full py-2 bg-red-600 rounded text-center hover:bg-red-500"
+            >
+              Logout
+            </button>
+          )}
         </div>
       )}
     </nav>
