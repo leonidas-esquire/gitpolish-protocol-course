@@ -5,7 +5,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
-// Authentication context
+// Authentication context and route guards
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
@@ -18,6 +18,7 @@ import Module1Quiz from "./pages/Module1Quiz";
 import Certification from "./pages/Certification";
 import Resources from "./pages/Resources";
 import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login"; // ⬅️ import the login page
 
 // Admin pages
 import AdminDashboard from "./pages/AdminDashboard";
@@ -29,6 +30,7 @@ function Router() {
     <Switch>
       {/* Public routes */}
       <Route path="/" component={Home} />
+      <Route path="/login" component={Login} /> {/* ⬅️ login route */}
       <Route path="/curriculum" component={Curriculum} />
       <ProtectedRoute path="/module-1" component={Module1Dashboard} />
       <ProtectedRoute path="/module-1/quiz" component={Module1Quiz} />
@@ -44,7 +46,7 @@ function Router() {
       {/* 404 route */}
       <Route path="/404" component={NotFound} />
 
-      {/* Fallback route */}
+      {/* Fallback */}
       <Route component={NotFound} />
     </Switch>
   );
