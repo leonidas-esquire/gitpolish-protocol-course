@@ -2,65 +2,65 @@ name: Receive Updates from Website
 
 on:
   repository_dispatch:
-    types: [sync-from-website]
+    types: [website-update]
   workflow_dispatch:
 
 jobs:
-  receive-updates:
+  receive-from-website:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
     steps:
-      - name: Checkout materials repository
+      - name: Checkout course materials repository
         uses: actions/checkout@v4
-        
+        with:
+          token: ${{ secrets.SYNC_TOKEN }}
+          fetch-depth: 0
+          path: materials
+      
       - name: Checkout website repository
         uses: actions/checkout@v4
         with:
           repository: leonidas-esquire/gitpolish-course-website
           token: ${{ secrets.SYNC_TOKEN }}
-          path: website-repo
-          
-      - name: Sync documentation from website
+          fetch-depth: 0
+          path: website
+      
+      - name: Sync updates from website
         run: |
-          # Create docs directory if it doesn't exist
-          mkdir -p docs
-          
-          # Sync LMS implementation status
-          if [ -f "website-repo/LMS_IMPLEMENTATION_PLAN.md" ]; then
-            cp website-repo/LMS_IMPLEMENTATION_PLAN.md docs/LMS_STATUS.md
-          fi
-          
-          # Sync architecture documentation
-          if [ -f "website-repo/docs/ARCHITECTURE.md" ]; then
-            cp website-repo/docs/ARCHITECTURE.md docs/WEBSITE_ARCHITECTURE.md
-          fi
-          
-      - name: Update sync documentation
-        run: |
-          # Update sync log
-          echo "## Sync $(date -u +%Y-%m-%d\ %H:%M:%S\ UTC)" >> docs/SYNC_LOG.md
-          echo "" >> docs/SYNC_LOG.md
-          echo "**Source:** gitpolish-course-website" >> docs/SYNC_LOG.md
-          echo "**Direction:** website → materials" >> docs/SYNC_LOG.md
-          echo "**Trigger:** ${{ github.event_name }}" >> docs/SYNC_LOG.md
-          echo "" >> docs/SYNC_LOG.md
-          
-          # Update CHANGELOG
-          echo "" >> CHANGELOG.md
-          echo "### Website Documentation Sync - $(date -u +%Y-%m-%d)" >> CHANGELOG.md
-          echo "" >> CHANGELOG.md
-          echo "Updated website status and architecture documentation" >> CHANGELOG.md
-          echo "" >> CHANGELOG.md
-          
+          # Sync directories back from website
+          rsync -av --delete website/public/course-materials/ materials/course-materials/
+          rsync -av --delete website/public/docs/ materials/docs/
+          rsync -av --delete website/public/templates/ materials/templates/
+          rsync -av --delete website/public/resources/ materials/resources/
+      
       - name: Commit and push changes
+        working-directory: materials
         run: |
           git config user.name "GitPolish Sync Bot"
-          git config user.email "sync@gitpolish.com"
+          git config user.email "sync-bot@gitpolish-course.local"
+          
           git add .
-          git diff --staged --quiet || git commit -m "sync: website → materials - documentation update
-
-Synced from: gitpolish-course-website
-Synced to: gitpolish-protocol-course
-Sync type: ${{ github.event_name }}
-
-[GitPolish Protocol™ Sync System]"
-          git push
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "sync: Receive updates from gitpolish-course-website | Automated sync from website repository | Updated: course-materials, docs, templates, resources | Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
+      
+      - name: Create sync report
+        if: always()
+        run: |
+          echo "## Sync Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Source**: gitpolish-course-website" >> $GITHUB_STEP_SUMMARY
+          echo "**Target**: gitpolish-protocol-course" >> $GITHUB_STEP_SUMMARY
+          echo "**Timestamp**: $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Synced Directories" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ course-materials/" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ docs/" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ templates/" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ resources/" >> $GITHUB_STEP_SUMMARY
