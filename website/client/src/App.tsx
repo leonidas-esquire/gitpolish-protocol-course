@@ -6,7 +6,8 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Curriculum from "./pages/Curriculum";
-import Module1 from "./pages/Module1";
+import Module1Dashboard from "./pages/Module1Dashboard";
+import Module1Quiz from "./pages/Module1Quiz";
 import Certification from "./pages/Certification";
 import Resources from "./pages/Resources";
 import Dashboard from "./pages/Dashboard";
@@ -16,7 +17,8 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/curriculum" component={Curriculum} />
-      <Route path="/module-1" component={Module1} />
+      <Route path="/module-1" component={Module1Dashboard} />
+      <Route path="/module-1/quiz" component={Module1Quiz} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/certification" component={Certification} />
       <Route path="/resources" component={Resources} />
