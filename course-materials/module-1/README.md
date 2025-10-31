@@ -27,7 +27,7 @@ The `module1_slides/` directory contains 21 professional slides covering:
 - GitPolish Protocol™ framework introduction
 - The Five Pillars and Seven-Phase Process
 - Detailed coverage of Scenarios 1-10
-- Hands-on lab instructions
+- Hands-on lab instructions (The Meat of This Course)
 - Knowledge check and assessment
 
 ### Labs
