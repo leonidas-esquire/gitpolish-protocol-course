@@ -18,7 +18,10 @@ import Module1Quiz from "./pages/Module1Quiz";
 import Certification from "./pages/Certification";
 import Resources from "./pages/Resources";
 import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login"; // ⬅️ import the login page
+import Login from "./pages/Login";
+
+// Certificate page for students
+import Certificate from "./pages/Certificate";
 
 // Admin pages
 import AdminDashboard from "./pages/AdminDashboard";
@@ -30,13 +33,16 @@ function Router() {
     <Switch>
       {/* Public routes */}
       <Route path="/" component={Home} />
-      <Route path="/login" component={Login} /> {/* ⬅️ login route */}
+      <Route path="/login" component={Login} />
       <Route path="/curriculum" component={Curriculum} />
+
+      {/* Student-protected routes */}
       <ProtectedRoute path="/module-1" component={Module1Dashboard} />
       <ProtectedRoute path="/module-1/quiz" component={Module1Quiz} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <ProtectedRoute path="/certification" component={Certification} />
       <ProtectedRoute path="/resources" component={Resources} />
+      <ProtectedRoute path="/certificate" component={Certificate} /> {/* certificate route */}
 
       {/* Admin routes */}
       <AdminRoute path="/admin" component={AdminDashboard} />
