@@ -1,7 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import Navigation from "../components/Navigation";
 import { useAuth } from "../contexts/AuthContext";
-// Assume you have a tRPC hook generator; adjust import to match your setup
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+// Adjust the import to match your tRPC hook generator
 import { trpc } from "../utils/trpc";
 
 interface CertificateData {
@@ -16,7 +18,7 @@ export default function Certificate() {
   const [certificate, setCertificate] = useState<CertificateData | null>(null);
   const certificateRef = useRef<HTMLDivElement>(null);
 
-  // Replace with your actual tRPC query for fetching certificate by userId
+  // Fetch certificate for the logged-in student
   const getCert = trpc.getCertificate.useQuery(
     { studentId: user?.id || "" },
     { enabled: !!user }
@@ -29,14 +31,22 @@ export default function Certificate() {
   }, [getCert.data]);
 
   async function handleDownload() {
-    // Placeholder: integrate a library like html2pdf or react-pdf to generate PDF
-    // Example using html2canvas and jsPDF (not installed yet):
-    // const canvas = await html2canvas(certificateRef.current!);
-    // const imgData = canvas.toDataURL('image/png');
-    // const pdf = new jsPDF();
-    // pdf.addImage(imgData, 'PNG', 0, 0);
-    // pdf.save(`certificate-${certificate?.id}.pdf`);
-    alert("PDF generation is not yet implemented.");
+    if (!certificateRef.current) return;
+
+    // Capture the certificate component
+    const canvas = await html2canvas(certificateRef.current, {
+      scale: 2, // Increase resolution for better quality
+    });
+    const imgData = canvas.toDataURL("image/png");
+
+    // Create PDF with the same aspect ratio as the canvas
+    const pdf = new jsPDF({
+      orientation: "landscape",
+      unit: "px",
+      format: [canvas.width, canvas.height],
+    });
+    pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+    pdf.save(`certificate-${certificate?.id}.pdf`);
   }
 
   return (
