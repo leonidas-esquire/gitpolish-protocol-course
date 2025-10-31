@@ -12,7 +12,7 @@ export default function Navigation() {
     setLocation("/login"); // redirect to login after logging out
   }
 
-  // Define navigation links based on user role
+  // Define navigation links
   const publicLinks = [
     { href: "/", label: "Home" },
     { href: "/curriculum", label: "Curriculum" },
@@ -22,6 +22,7 @@ export default function Navigation() {
   const studentLinks = [
     { href: "/dashboard", label: "Dashboard" },
     { href: "/module-1", label: "Module 1" },
+    { href: "/certificate", label: "Certificate" }, // new certificate link
   ];
 
   const adminLinks = [
@@ -33,11 +34,13 @@ export default function Navigation() {
   return (
     <nav className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      {/* Site logo */}
         <div className="flex items-center">
           <Link href="/">
             <a className="text-lg font-bold">GitPolish LMS</a>
           </Link>
         </div>
+        {/* Desktop navigation */}
         <div className="hidden md:flex space-x-6 items-center">
           {publicLinks.map((link) => (
             <Link key={link.href} href={link.href}>
@@ -71,12 +74,14 @@ export default function Navigation() {
             </button>
           )}
         </div>
+        {/* Mobile nav toggle */}
         <div className="md:hidden">
           <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2">
             &#9776;
           </button>
         </div>
       </div>
+      {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden bg-gray-800 px-4 pt-2 pb-4 space-y-2">
           {publicLinks.map((link) => (
