@@ -11,6 +11,9 @@ import Module1Quiz from "./pages/Module1Quiz";
 import Certification from "./pages/Certification";
 import Resources from "./pages/Resources";
 import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminStudents from "./pages/AdminStudents";
+import AdminAnalytics from "./pages/AdminAnalytics";
 
 function Router() {
   return (
@@ -22,6 +25,9 @@ function Router() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/certification" component={Certification} />
       <Route path="/resources" component={Resources} />
+      <Route path="/admin" component={AdminDashboard} />
+      <Route path="/admin/students" component={AdminStudents} />
+      <Route path="/admin/analytics" component={AdminAnalytics} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
